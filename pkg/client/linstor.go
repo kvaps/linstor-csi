@@ -247,6 +247,9 @@ func (s *Linstor) GetByName(name string) (*volume.Info, error) {
 		if vol.Name == name {
 			return vol, nil
 		}
+		if vol.Name == s.fallbackPrefix+name {
+			return vol, nil
+		}
 	}
 	return nil, nil
 }
@@ -266,11 +269,14 @@ func (s *Linstor) GetByID(ID string) (*volume.Info, error) {
 	}
 
 	for _, rd := range list {
+		vol, err := s.resDefToVolume(rd)
+		if err != nil {
+			return nil, err
+		}
 		if rd.RscName == ID {
-			vol, err := s.resDefToVolume(rd)
-			if err != nil {
-				return nil, err
-			}
+			return vol, nil
+		}
+		if vol.ID == ID {
 			return vol, nil
 		}
 	}
