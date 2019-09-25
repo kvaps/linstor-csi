@@ -1,6 +1,6 @@
 ---
 kind: StatefulSet
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 metadata:
   name: linstor-csi-controller
   namespace: kube-system
@@ -205,7 +205,7 @@ roleRef:
 
 ---
 kind: DaemonSet
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 metadata:
   name: linstor-csi-node
   namespace: kube-system
